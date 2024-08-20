@@ -55,18 +55,10 @@ body {
 	font-size:16px;
 	margin-top:20px;
 }
-.btn {
-  background:#56CFD2;
-  color:#FFF;
-  padding:10px 25px;
-  display:inline-block;
-  margin-top:15px;
-  text-decoration:none;
-  font-weight:600;
-  text-transform:uppercase;
-  border-radius:3px;
-  -moz-border-radius:3px;
-  -webkit-border-radiuss:3px;
+.result-image {
+  width: 100%;
+  height: auto;
+  display: none;
 }
   </style>
 
@@ -75,50 +67,35 @@ body {
 <div class="scratch-container">
   <div id="promo" class="scratchpad"></div>
 </div>
-<div class="promo-container" style="display:none;">
-  <div class="promo-code"></div>
-  <a href="htttp://jennamolby.com" target="_blank" class="btn">Register Now</a>
+<div class="promo-container">
+  <img id="result-image" class="result-image" src="images/result.jpg" alt="Result Image">
 </div>
-
 
 <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="https://jennamolby.com/scratch-and-win/js/wScratchPad.min.js"></script>
 
 <script type="text/javascript">
-
-var promoCode = '';
-var bg1 = 'images/back.jpg';
-var bg2 = 'images/back.jpg';
-var bg3 = 'images/back.jpg';
-var bgArray= [ bg1, bg2, bg3 ],
-selectBG = bgArray[Math.floor(Math.random() * bgArray.length)];
-if (selectBG == bg1) {
-    promoCode = 'SCRATCH400';
-  } else if (selectBG == bg2) {
-    promoCode = 'SCRATCH500';
-  } if (selectBG == bg3) {
-    var promoCode = '';
-  }
+	
 $('#promo').wScratchPad({
     // the size of the eraser
-    size        : 25,    
+    size        : 5,    
     // the randomized scratch image   
-    bg:  selectBG,
+    bg: 'images/back.jpg',
     // give real-time updates
     realtime    : true, 
     // The overlay image
     fg: 'images/front.jpg',
     // The cursor (coin) image
-    'cursor': 'url("") 5 5, default',
+'cursor': 'url("images/cursor.png") 5 5, auto',
     
     scratchMove: function (e, percent) {
-        // Show the plain-text promo code and call-to-action when the scratch area is 50% scratched
-        if ((percent > 50) && (promoCode != '')) {
-          $('.promo-container').show();
-          $('body').removeClass('not-selectable');
-          $('.promo-code').html('Your code is: ' + promoCode);
+        // Show the result image when the scratch area is 20% scratched
+        if (percent > 25) {
+          $('#result-image').show();
         }
       }
  });
 </script>
       
+</body>
+</html>
